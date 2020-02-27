@@ -11,5 +11,5 @@ function addStyle(locator) {
     return;
   }
 
-  element.css({ "background-color": "yellow"});
+  element.css({ "border": "3px solid #f26522"});
 }
