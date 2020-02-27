@@ -2,9 +2,20 @@ var version = "1.3";
 
 const BACKEND_URL = "http://localhost:8086/locators";
 
-const getData = () => {
+function getCurrentTabUrl() {
+  chrome.tabs.query(
+    { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
+    function(tabs) {
+      getData(tabs[0].url);
+    }
+  );
+}
+
+const getData = currentTabUrl => {
+  console.log(currentTabUrl);
+
   const req = new XMLHttpRequest();
-  req.open("GET", BACKEND_URL, true);
+  req.open("GET", `${BACKEND_URL}?url=${currentTabUrl}`, true);
   req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   req.send();
 
@@ -17,13 +28,10 @@ const getData = () => {
 };
 
 const hightLightElements = data => {
-  console.log("Load data");
   console.log(data);
 
-  data.forEach(element => {
-    element.locators.forEach(locator => {
-      findElement(locator);
-    });
+  Object.keys(data).forEach(locator => {
+    findElement(locator);
   });
 };
 
@@ -46,7 +54,7 @@ const onStart = () => {
 };
 
 const onClickLoadData = () => {
-  chrome.tabs.getSelected(null, getData);
+  chrome.tabs.getSelected(null, getCurrentTabUrl);
 };
 
 document.addEventListener("DOMContentLoaded", onStart, false);

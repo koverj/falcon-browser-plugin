@@ -6,6 +6,7 @@
     "activeTab",
     "*://*/locators",
     "storage",
+    "tabs",
     "declarativeContent"
   ],
   "content_scripts": [

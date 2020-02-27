@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.command === "init") {
-    addStyle(request.locator.locator);
+    addStyle(request.locator);
   }
   sendResponse({ result: "success" });
 });
