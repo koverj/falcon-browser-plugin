@@ -1,0 +1,20 @@
+.label-relative {
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: red;
+  text-align: center;
+  color: white;
+}
+
+.label:hover {
+  cursor: pointer;
+  transition: max-height 0.25s ease-in;
+}

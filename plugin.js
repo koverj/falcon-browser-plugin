@@ -6,6 +6,9 @@ function getCurrentTabUrl() {
   chrome.tabs.query(
     { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
     function(tabs) {
+      chrome.tabs.insertCSS(tabs[0].id, {
+        file: "koverj.css"
+      });
       getData(tabs[0].url);
     }
   );
@@ -30,16 +33,16 @@ const getData = currentTabUrl => {
 const hightLightElements = data => {
   console.log(data);
 
-  Object.keys(data).forEach(locator => {
-    findElement(locator);
+  Object.entries(data).forEach(([locator, value]) => {
+    findElement(locator, value);
   });
 };
 
-const findElement = locator => {
+const findElement = (locator, value) => {
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     chrome.tabs.sendMessage(
       tabs[0].id,
-      { command: "init", locator: locator },
+      { command: "init", locator: locator, value: value },
       function(response) {
         console.log(response.result);
       }
