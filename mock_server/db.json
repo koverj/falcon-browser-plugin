@@ -1,0 +1,41 @@
+{
+  "locators": {
+    "body > app-root > app-auth-page > div > div > div > div > form > fieldset > fieldset:nth-child(2) > input": {
+      "tests": ["testSimpleAndRelativeLocators()", "testSimpleLocators()"],
+      "urls": [
+        "https://angular.realworld.io/login",
+        "https://angular.realworld.io/login"
+      ]
+    },
+    "body > app-root > app-auth-page > div > div > div > div > form > fieldset > fieldset:nth-child(3) > input": {
+      "tests": ["testSimpleAndRelativeLocators()", "testSimpleLocators()"],
+      "urls": [
+        "https://angular.realworld.io/login",
+        "https://angular.realworld.io/login"
+      ]
+    },
+    "body > app-root > app-auth-page > div > div > div > div > form > fieldset > button": {
+      "tests": ["testSimpleAndRelativeLocators()", "testSimpleLocators()"],
+      "urls": [
+        "https://angular.realworld.io/login",
+        "https://angular.realworld.io/login"
+      ]
+    },
+    "body > app-root > app-layout-header > nav > div > ul > li:nth-child(2) > a": {
+      "tests": ["testSimpleLocators()"],
+      "urls": ["https://angular.realworld.io/login"]
+    },
+    "body > app-root": {
+      "tests": ["testRelativeLocators()"],
+      "urls": ["https://angular.realworld.io/login"]
+    },
+    "body > app-root app-layout-header > nav": {
+      "tests": ["testRelativeLocators()"],
+      "urls": ["https://angular.realworld.io/login"]
+    },
+    "body > app-root app-layout-header > nav div > ul > li:nth-child(2) > a": {
+      "tests": ["testRelativeLocators()"],
+      "urls": ["https://angular.realworld.io/login"]
+    }
+  }
+}
