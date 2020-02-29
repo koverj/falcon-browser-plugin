@@ -14,6 +14,10 @@ function getCurrentTabUrl() {
   );
 }
 
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  getData(tab.url);
+});
+
 const getData = currentTabUrl => {
   console.log(currentTabUrl);
 
