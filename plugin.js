@@ -15,8 +15,9 @@ const loadData = () => {
 };
 
 const getData = currentTabUrl => {
+  const encodedUrl = encodeURIComponent(`${currentTabUrl}`);
   const req = new XMLHttpRequest();
-  req.open("GET", `${BACKEND_URL}?url=${currentTabUrl}`, true);
+  req.open("GET", `${BACKEND_URL}?url=${encodedUrl}`, true);
   req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   req.send();
 
