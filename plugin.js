@@ -2,25 +2,19 @@ var version = "1.3";
 
 const BACKEND_URL = "http://localhost:8086/locators";
 
-function getCurrentTabUrl() {
+const loadData = () => {
   chrome.tabs.query(
     { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
-    function(tabs) {
+    tabs => {
       chrome.tabs.insertCSS(tabs[0].id, {
         file: "koverj.css"
       });
       getData(tabs[0].url);
     }
   );
-}
-
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  getData(tab.url);
-});
+};
 
 const getData = currentTabUrl => {
-  console.log(currentTabUrl);
-
   const req = new XMLHttpRequest();
   req.open("GET", `${BACKEND_URL}?url=${currentTabUrl}`, true);
   req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -29,28 +23,23 @@ const getData = currentTabUrl => {
   req.onreadystatechange = function() {
     // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      hightLightElements(JSON.parse(this.responseText));
+      saveToStorage(this.responseText);
+      broadcast({ command: "init" });
     }
   };
 };
 
-const hightLightElements = data => {
-  console.log(data);
-
-  Object.entries(data).forEach(([locator, value]) => {
-    findElement(locator, value);
+const saveToStorage = data => {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.executeScript(tabs[0].id, {
+      code: `localStorage.setItem("locators", ${JSON.stringify(data)});`
+    });
   });
 };
 
-const findElement = (locator, value) => {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.sendMessage(
-      tabs[0].id,
-      { command: "init", locator: locator, value: value },
-      function(response) {
-        console.log(response.result);
-      }
-    );
+const broadcast = message => {
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    chrome.tabs.sendMessage(tabs[0].id, message, () => {});
   });
 };
 
@@ -61,7 +50,7 @@ const onStart = () => {
 };
 
 const onClickLoadData = () => {
-  chrome.tabs.getSelected(null, getCurrentTabUrl);
+  chrome.tabs.getSelected(null, loadData);
 };
 
 document.addEventListener("DOMContentLoaded", onStart, false);
