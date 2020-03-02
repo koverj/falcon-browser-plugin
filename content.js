@@ -19,7 +19,7 @@ const getLocatorsFromStorage = () => {
 
 const addStyle = (locator, value) => {
   $.notify.addStyle("koverj-pin", {
-    html: `<div><a href='#' title='${locator}' data-notify-text></a></div>`,
+    html: `<div><span title='${locator}' data-notify-text></span></div>`,
     classes: {
       base: {
         "font-weight": "bold",
@@ -64,10 +64,10 @@ const addStyle = (locator, value) => {
     }
   });
 
-  $(".notifyjs-koverj-pin-success > a")
+  $(".notifyjs-koverj-pin-base > span")
     .off("click")
     .on("click", event => {
-      console.log(event.target.title);
+      console.log(getLocatorsFromStorage()[event.target.title].tests);
     });
 
   $(locator).notify(value["tests"].length, {
@@ -89,7 +89,7 @@ const addStyle = (locator, value) => {
     // default style
     style: "koverj-pin",
     // default class (string or [string])
-    className: "success",
+    className: "warn",
     // show animation
     showAnimation: "slideDown",
     // show animation duration
