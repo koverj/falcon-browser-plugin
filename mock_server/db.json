@@ -39,7 +39,7 @@
     },
     "body > app-root > app-home-page > div > div.container.page > div > div.col-md-9 > app-article-list > app-article-preview:nth-child(1) > div > app-article-meta > div > app-favorite-button > button": {
       "tests": ["1"],
-      "urls": []
+      "urls": ["https://angular.realworld.io/login"]
     }
   }
 }
