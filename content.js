@@ -12,6 +12,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   sendResponse({ result: "success" });
 });
 
+const mysidebar_btn = "#mysidebar";
+const tests_list = "#tests-list";
+
 const getLocatorsFromStorage = () => {
   const locators = localStorage.getItem("locators");
   return JSON.parse(locators);
@@ -68,6 +71,28 @@ const addStyle = (locator, value) => {
     .off("click")
     .on("click", event => {
       console.log(getLocatorsFromStorage()[event.target.title].tests);
+      addSideBar();
+
+      $(mysidebar_btn)
+          .sidebar({side: "right"})
+          .trigger("sidebar:open")
+          .on("sidebar:opened", function () {
+            let tests = getLocatorsFromStorage()[event.target.title].tests;
+            let sidebar = document.getElementById('mysidebar');
+
+            //remove previous values need to refactor
+            $(tests_list).remove();
+            let ul = document.createElement("ul");
+            ul.setAttribute('id', 'tests-list');
+            for (test in tests) {
+              console.log("in sidebar: {}", tests[test])
+              let li = document.createElement("li");
+              li.textContent = tests[test];
+              ul.appendChild(li);
+            }
+            sidebar.appendChild(ul);
+      });
+
     });
 
   $(locator).notify(value["tests"].length, {
@@ -101,4 +126,37 @@ const addStyle = (locator, value) => {
     // padding between element and notification
     gap: 2
   });
+};
+
+const addSideBar = () => {
+  if (document.getElementById('sidebars') === null) {
+    let sidebars = document.createElement("div");
+    sidebars.setAttribute('id', 'sidebars');
+    sidebars.setAttribute('class', 'sidebars');
+
+    let sidebar = document.createElement("div");
+    sidebar.setAttribute('id', 'mysidebar');
+    sidebar.setAttribute('class', 'koverj-sidebar right');
+    sidebar.textContent = "Tests";
+    sidebar.style.color = "black";
+
+    let closeBtn = document.createElement("a");
+    closeBtn.setAttribute('id', 'closeSidebars');
+    closeBtn.setAttribute('class', 'kj-close-sidebars');
+
+    sidebar.appendChild(closeBtn);
+    sidebars.appendChild(sidebar);
+    document.body.appendChild(sidebars);
+
+    $("#closeSidebars")
+        .on("click", function () {
+          console.log('closeSidebars');
+          $(mysidebar_btn).sidebar({side: "right"}).trigger("sidebar:close");
+
+          $(mysidebar_btn).on("sidebar:closed", function () {
+            console.log('onCloseSidebars');
+            $(tests_list).remove();
+          });
+        });
+  }
 };
