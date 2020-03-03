@@ -159,15 +159,9 @@ const addSideBar = () => {
     document.body.appendChild(sidebars);
 
     $("#closeSidebars").on("click", function() {
-      console.log("closeSidebars");
       $(mysidebar_btn)
         .sidebar({ side: "right" })
         .trigger("sidebar:close");
-
-      $(mysidebar_btn).on("sidebar:closed", function() {
-        console.log("onCloseSidebars");
-        $(tests_list).remove();
-      });
     });
   }
 };
