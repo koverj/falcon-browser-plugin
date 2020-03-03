@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 const mysidebar_btn = "#mysidebar";
-const tests_list = "#tests-list";
+const tests_list = ".kj-tests-list";
 
 const getLocatorsFromStorage = () => {
   const locators = localStorage.getItem("locators");
