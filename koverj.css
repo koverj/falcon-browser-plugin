@@ -8,41 +8,47 @@
   bottom: 0;
   width: 270px;
   /*background: #448AFF;*/
-  background: #FCF8E3;
-  z-index: 100
+  background: #fcf8e3;
+  z-index: 100;
 }
 
 .sidebars > .koverj-sidebar {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.64);
   position: fixed;
   color: white;
-  padding: 30px;
   font-size: 2em;
   text-align: center;
-  z-index: 100
+  z-index: 100;
+  padding-top: 15px;
 }
 
-#tests-list{
+.kj-tests-list {
   font-size: 15px;
   text-align: left;
+  color: black;
+  padding-top: 15px;
 }
 
 .kj-close-sidebars {
   position: absolute;
-  right: 32px;
-  top: 32px;
-  width: 32px;
-  height: 32px;
+  top: 29px;
+  width: 21px;
+  height: 11px;
+  left: 15px;
   opacity: 0.3;
 }
+
 .kj-close-sidebars:hover {
   opacity: 1;
+  cursor: pointer;
 }
-.kj-close-sidebars:before, .kj-close-sidebars:after {
+
+.kj-close-sidebars:before,
+.kj-close-sidebars:after {
   position: absolute;
   left: 15px;
-  content: ' ';
-  height: 33px;
+  content: " ";
+  height: 25px;
   width: 2px;
   background-color: #333;
 }
@@ -53,3 +59,6 @@
   transform: rotate(-45deg);
 }
 
+.kj-sidebar-header {
+  color: black;
+}

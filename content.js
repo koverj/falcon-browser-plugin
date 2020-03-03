@@ -74,25 +74,24 @@ const addStyle = (locator, value) => {
       addSideBar();
 
       $(mysidebar_btn)
-          .sidebar({side: "right"})
-          .trigger("sidebar:open")
-          .on("sidebar:opened", function () {
-            let tests = getLocatorsFromStorage()[event.target.title].tests;
-            let sidebar = document.getElementById('mysidebar');
+        .sidebar({ side: "right" })
+        .trigger("sidebar:open")
+        .on("sidebar:opened", function() {
+          let tests = getLocatorsFromStorage()[event.target.title].tests;
+          let sidebar = document.getElementById("mysidebar");
 
-            //remove previous values need to refactor
-            $(tests_list).remove();
-            let ul = document.createElement("ul");
-            ul.setAttribute('id', 'tests-list');
-            for (test in tests) {
-              console.log("in sidebar: {}", tests[test])
-              let li = document.createElement("li");
-              li.textContent = tests[test];
-              ul.appendChild(li);
-            }
-            sidebar.appendChild(ul);
-      });
-
+          //remove previous values need to refactor
+          $(tests_list).remove();
+          let ul = document.createElement("ul");
+          ul.setAttribute("class", "kj-tests-list");
+          for (test in tests) {
+            console.log("in sidebar: {}", tests[test]);
+            let li = document.createElement("li");
+            li.textContent = tests[test];
+            ul.appendChild(li);
+          }
+          sidebar.appendChild(ul);
+        });
     });
 
   $(locator).notify(value["tests"].length, {
@@ -129,34 +128,46 @@ const addStyle = (locator, value) => {
 };
 
 const addSideBar = () => {
-  if (document.getElementById('sidebars') === null) {
+  if (document.getElementById("sidebars") === null) {
     let sidebars = document.createElement("div");
-    sidebars.setAttribute('id', 'sidebars');
-    sidebars.setAttribute('class', 'sidebars');
+    sidebars.setAttribute("id", "sidebars");
+    sidebars.setAttribute("class", "sidebars");
 
     let sidebar = document.createElement("div");
-    sidebar.setAttribute('id', 'mysidebar');
-    sidebar.setAttribute('class', 'koverj-sidebar right');
-    sidebar.textContent = "Tests";
-    sidebar.style.color = "black";
+    sidebar.setAttribute("id", "mysidebar");
+    sidebar.setAttribute("class", "koverj-sidebar right");
 
     let closeBtn = document.createElement("a");
-    closeBtn.setAttribute('id', 'closeSidebars');
-    closeBtn.setAttribute('class', 'kj-close-sidebars');
+    closeBtn.setAttribute("id", "closeSidebars");
+    closeBtn.setAttribute("class", "kj-close-sidebars");
 
-    sidebar.appendChild(closeBtn);
+    let header = document.createElement("div");
+    header.setAttribute("class", "kj-sidebar-header");
+    header.appendChild(closeBtn);
+
+    let span = document.createElement("span");
+    span.appendChild(closeBtn);
+
+    let spanText = document.createElement("span");
+    spanText.textContent = "Tests";
+
+    header.appendChild(span);
+    header.appendChild(spanText);
+
+    sidebar.appendChild(header);
     sidebars.appendChild(sidebar);
     document.body.appendChild(sidebars);
 
-    $("#closeSidebars")
-        .on("click", function () {
-          console.log('closeSidebars');
-          $(mysidebar_btn).sidebar({side: "right"}).trigger("sidebar:close");
+    $("#closeSidebars").on("click", function() {
+      console.log("closeSidebars");
+      $(mysidebar_btn)
+        .sidebar({ side: "right" })
+        .trigger("sidebar:close");
 
-          $(mysidebar_btn).on("sidebar:closed", function () {
-            console.log('onCloseSidebars');
-            $(tests_list).remove();
-          });
-        });
+      $(mysidebar_btn).on("sidebar:closed", function() {
+        console.log("onCloseSidebars");
+        $(tests_list).remove();
+      });
+    });
   }
 };
