@@ -2,40 +2,45 @@ var version = "1.3";
 
 const BACKEND_URL = "http://localhost:8086/locators";
 
-const getData = () => {
+const loadData = () => {
+  chrome.tabs.query(
+    { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
+    tabs => {
+      // chrome.tabs.insertCSS(tabs[0].id, {
+      //   file: "koverj.css"
+      // });
+      getData(tabs[0].url);
+    }
+  );
+};
+
+const getData = currentTabUrl => {
+  const encodedUrl = encodeURIComponent(`${currentTabUrl}`);
   const req = new XMLHttpRequest();
-  req.open("GET", BACKEND_URL, true);
+  req.open("GET", `${BACKEND_URL}?url=${encodedUrl}`, true);
   req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   req.send();
 
   req.onreadystatechange = function() {
     // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      hightLightElements(JSON.parse(this.responseText));
+      saveToStorage(this.responseText);
+      broadcast({ command: "init" });
     }
   };
 };
 
-const hightLightElements = data => {
-  console.log("Load data");
-  console.log(data);
-
-  data.forEach(element => {
-    element.locators.forEach(locator => {
-      findElement(locator);
+const saveToStorage = data => {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.executeScript(tabs[0].id, {
+      code: `localStorage.setItem("locators", ${JSON.stringify(data)});`
     });
   });
 };
 
-const findElement = locator => {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.sendMessage(
-      tabs[0].id,
-      { command: "init", locator: locator },
-      function(response) {
-        console.log(response.result);
-      }
-    );
+const broadcast = message => {
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    chrome.tabs.sendMessage(tabs[0].id, message, () => {});
   });
 };
 
@@ -46,7 +51,7 @@ const onStart = () => {
 };
 
 const onClickLoadData = () => {
-  chrome.tabs.getSelected(null, getData);
+  chrome.tabs.getSelected(null, loadData);
 };
 
 document.addEventListener("DOMContentLoaded", onStart, false);
