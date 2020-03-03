@@ -22,7 +22,7 @@ const getLocatorsFromStorage = () => {
 
 const addStyle = (locator, value) => {
   $.notify.addStyle("koverj-pin", {
-    html: `<div><span title='${locator}' data-notify-text></span></div>`,
+    html: `<div><a href="javascript:void(0)" title='${locator}' data-notify-text></a></div>`,
     classes: {
       base: {
         "font-weight": "bold",
@@ -67,9 +67,9 @@ const addStyle = (locator, value) => {
     }
   });
 
-  $(".notifyjs-koverj-pin-base > span")
+  $(document)
     .off("click")
-    .on("click", event => {
+    .on("click", ".notifyjs-koverj-pin-base > a", event => {
       console.log(getLocatorsFromStorage()[event.target.title].tests);
       addSideBar();
 
