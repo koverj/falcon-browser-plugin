@@ -1,3 +1,38 @@
+const notifyOptions = {
+  // whether to hide the notification on click
+  clickToHide: false,
+  // whether to auto-hide the notification
+  autoHide: false,
+  // if autoHide, hide after milliseconds
+  autoHideDelay: 5000,
+  // show the arrow pointing at the element
+  arrowShow: true,
+  // arrow size in pixels
+  arrowSize: 5,
+  // position defines the notification position though uses the defaults below
+  // position: "right",
+  // default positions
+  elementPosition: "bottom right",
+  globalPosition: "top right",
+  // default style
+  style: "koverj-pin",
+  // default class (string or [string])
+  className: "warn",
+  // show animation
+  showAnimation: "slideDown",
+  // show animation duration
+  showDuration: 400,
+  // hide animation
+  hideAnimation: "slideUp",
+  // hide animation duration
+  hideDuration: 200,
+  // padding between element and notification
+  gap: 2
+};
+
+const mysidebar_btn = "#mysidebar";
+const tests_list = ".kj-tests-list";
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.command === "init") {
     const locators = getLocatorsFromStorage();
@@ -11,9 +46,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
   sendResponse({ result: "success" });
 });
-
-const mysidebar_btn = "#mysidebar";
-const tests_list = ".kj-tests-list";
 
 const getLocatorsFromStorage = () => {
   const locators = localStorage.getItem("locators");
@@ -70,7 +102,6 @@ const addStyle = (locator, value) => {
   $(document)
     .off("click")
     .on("click", ".notifyjs-koverj-pin-base > a", event => {
-      console.log(getLocatorsFromStorage()[event.target.title].tests);
       addSideBar();
 
       $(mysidebar_btn)
@@ -80,7 +111,6 @@ const addStyle = (locator, value) => {
           let tests = getLocatorsFromStorage()[event.target.title].tests;
           let sidebar = document.getElementById("mysidebar");
 
-          //remove previous values need to refactor
           $(tests_list).remove();
           let ul = document.createElement("ul");
           ul.setAttribute("class", "kj-tests-list");
@@ -94,37 +124,30 @@ const addStyle = (locator, value) => {
         });
     });
 
-  $(locator).notify(value["tests"].length, {
-    // whether to hide the notification on click
-    clickToHide: false,
-    // whether to auto-hide the notification
-    autoHide: false,
-    // if autoHide, hide after milliseconds
-    autoHideDelay: 5000,
-    // show the arrow pointing at the element
-    arrowShow: true,
-    // arrow size in pixels
-    arrowSize: 5,
-    // position defines the notification position though uses the defaults below
-    // position: "right",
-    // default positions
-    elementPosition: "bottom right",
-    globalPosition: "top right",
-    // default style
-    style: "koverj-pin",
-    // default class (string or [string])
-    className: "warn",
-    // show animation
-    showAnimation: "slideDown",
-    // show animation duration
-    showDuration: 400,
-    // hide animation
-    hideAnimation: "slideUp",
-    // hide animation duration
-    hideDuration: 200,
-    // padding between element and notification
-    gap: 2
-  });
+  findElement(locator, value.type).notify(value["tests"].length, notifyOptions);
+};
+
+const findElement = (locator, type) => {
+  console.log(locator);
+  if (type === "css") {
+    return $(locator);
+  }
+
+  if (type === "xpath") {
+    return findElementByXpath(locator);
+  }
+};
+
+const findElementByXpath = path => {
+  return $(
+    document.evaluate(
+      path,
+      document,
+      null,
+      XPathResult.FIRST_ORDERED_NODE_TYPE,
+      null
+    ).singleNodeValue
+  );
 };
 
 const addSideBar = () => {

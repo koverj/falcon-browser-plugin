@@ -1,103 +1,27 @@
 {
-  "locators": {
-    "name": "testTodoDeletedIfEmptyName()",
-    "locators": [
-      {
-        "uuid": "2d1090bf-b95c-4957-80d3-bc7230ff8697",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "set value(toEditForEmpty)",
-        "locator": "body > section > header > form > input"
-      },
-      {
-        "uuid": "02f2ad9d-1e93-4060-a9c3-87f9039713d2",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "press enter()",
-        "locator": "body > section > header > form > input"
-      },
-      {
-        "uuid": "d253c28f-14aa-4589-9dc5-1bfb1c445d5d",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "get text()",
-        "locator": "$$(1 elements)[0]"
-      },
-      {
-        "uuid": "8a4361db-f3fd-4bdb-a274-243d033e144a",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "double click()",
-        "locator": "body > section > section > ul > li > div > label.findBy(exact text 'toEditForEmpty')"
-      },
-      {
-        "uuid": "01a9d1a6-ba49-4075-ba92-c98d129c8363",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "d55ebfaa-a910-4a94-a40a-aa1c98a97e71",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "6c72e1c6-2e00-4a30-a7fd-eb7fc3c8b54d",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "78215451-2c3b-4c03-9ab5-b0867a6d7f82",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "0b53e10c-acf6-4d2d-ab1e-4d392073d296",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "22439195-b0c9-4737-a7f1-42156055d4aa",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "dd27a8d2-1a25-4842-a2cd-e68587c4cb54",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "a30826c3-af5b-4bd9-92df-02ebde6f1768",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "a6c1dd10-a530-403a-b105-4847b74151de",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "b2f50312-4eaa-4959-9a5c-6caa7091fb28",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "4cfd555f-65e2-48c6-a3d4-b435c2657cf0",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      },
-      {
-        "uuid": "0a0b4f0f-ce5c-4a2e-8e1c-52686f7d7d13",
-        "url": "http://todomvc.com/examples/typescript-angular/#/",
-        "subject": "send keys()",
-        "locator": "body > section > section > ul > li:nth-child(1) > form > input"
-      }
-    ]
+  "body > app-root > app-layout-header > nav > div > ul > li:nth-child(2) > a": {
+    "type": "css",
+    "tests": ["testSimpleAndRelativeLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "body > app-root": {
+    "type": "css",
+    "tests": ["testSimpleAndRelativeLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "body > app-root app-layout-header > nav": {
+    "type": "css",
+    "tests": ["testSimpleAndRelativeLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "body > app-root app-layout-header > nav div > ul > li:nth-child(2) > a": {
+    "type": "css",
+    "tests": ["testSimpleAndRelativeLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "/html/body/app-root/app-home-page/div/div[2]/div/div[1]/app-article-list/app-article-preview[1]/div/app-article-meta/div/app-favorite-button/button": {
+    "type": "xpath",
+    "tests": ["testXpathLocators()"],
+    "urls": ["https://angular.realworld.io/"]
   }
 }
