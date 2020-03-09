@@ -54,7 +54,7 @@ const getLocatorsFromStorage = () => {
 
 const addStyle = (locator, value) => {
   $.notify.addStyle("koverj-pin", {
-    html: `<div><a href="javascript:void(0)" title='${locator}' data-notify-text></a></div>`,
+    html: `<div><a href="javascript:void(0)" title="${locator}" data-notify-text></a></div>`,
     classes: {
       base: {
         "font-weight": "bold",
