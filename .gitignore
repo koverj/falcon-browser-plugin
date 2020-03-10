@@ -1,3 +1,4 @@
 tests/
 *.iml
 .idea/
+coverage/

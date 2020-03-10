@@ -108,7 +108,12 @@ const addStyle = (locator, value) => {
         .sidebar({ side: "right" })
         .trigger("sidebar:open")
         .on("sidebar:opened", function() {
-          let tests = getLocatorsFromStorage()[event.target.title].tests;
+          const locator = getLocatorsFromStorage()[event.target.title];
+          if (!locator) {
+            return;
+          }
+
+          let tests = locator.tests;
           let sidebar = document.getElementById("mysidebar");
 
           $(tests_list).remove();

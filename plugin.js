@@ -6,9 +6,6 @@ const loadData = () => {
   chrome.tabs.query(
     { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
     tabs => {
-      // chrome.tabs.insertCSS(tabs[0].id, {
-      //   file: "koverj.css"
-      // });
       getData(tabs[0].url);
     }
   );
