@@ -121,7 +121,10 @@ const addStyle = (locator, value) => {
           ul.setAttribute("class", "kj-tests-list");
           for (test in tests) {
             let li = document.createElement("li");
-            li.textContent = tests[test];
+            let a = document.createElement("a");
+            a.textContent = tests[test];
+            a.href = "#";
+            li.appendChild(a);
             ul.appendChild(li);
           }
           sidebar.appendChild(ul);
