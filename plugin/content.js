@@ -120,7 +120,6 @@ const addStyle = (locator, value) => {
           let ul = document.createElement("ul");
           ul.setAttribute("class", "kj-tests-list");
           for (test in tests) {
-            console.log("in sidebar: {}", tests[test]);
             let li = document.createElement("li");
             li.textContent = tests[test];
             ul.appendChild(li);
@@ -133,7 +132,6 @@ const addStyle = (locator, value) => {
 };
 
 const findElement = (locator, type) => {
-  console.log(locator);
   if (type === "css") {
     return $(locator);
   }
