@@ -1,15 +1,24 @@
-var version = "1.3";
-
 const BACKEND_URL = "http://localhost:8086/locators";
 
-const loadData = () => {
-  chrome.tabs.query(
-    { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
-    tabs => {
-      getData(tabs[0].url);
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  chrome.storage.local.get(["isActive"], result => {
+    if (result.isActive) {
+      getData(changeInfo.url);
     }
-  );
-};
+  });
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (sender.tab) {
+    return;
+  }
+
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    getData(tabs[0].url);
+  });
+
+  sendResponse({ status: "loaded..." });
+});
 
 const getData = currentTabUrl => {
   const encodedUrl = encodeURIComponent(`${currentTabUrl}`);
@@ -40,15 +49,3 @@ const broadcast = message => {
     chrome.tabs.sendMessage(tabs[0].id, message, () => {});
   });
 };
-
-const onStart = () => {
-  document
-    .getElementById("loadData")
-    .addEventListener("click", onClickLoadData, false);
-};
-
-const onClickLoadData = () => {
-  chrome.tabs.getSelected(null, loadData);
-};
-
-document.addEventListener("DOMContentLoaded", onStart, false);

@@ -10,22 +10,22 @@
     "declarativeContent"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["plugin/background.js"]
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": [
-        "content.js",
-        "jquery-3.3.1.js",
-        "notify.min.js",
-        "jquery.sidebar.min.js"
+        "plugin/content.js",
+        "assets/js/jquery-3.3.1.js",
+        "assets/js/notify.min.js",
+        "assets/js/jquery.sidebar.min.js"
       ],
-      "css": ["koverj.css"]
+      "css": ["assets/css/koverj.css"]
     }
   ],
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "assets/icon.png",
     "default_title": "coverage for locators",
     "default_popup": "index.html"
   },
