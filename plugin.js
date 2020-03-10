@@ -6,6 +6,14 @@ const loadData = () => {
   chrome.tabs.query(
     { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
     tabs => {
+      // message from plugin.js to background.js
+      chrome.runtime.sendMessage(
+        { greeting: "hello" },
+        function(response) {
+          console.log(response.farewell);
+        }
+      );
+
       getData(tabs[0].url);
     }
   );
