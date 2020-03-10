@@ -135,7 +135,7 @@ const addStyle = (locator, value) => {
 const findElement = (locator, type) => {
   console.log(locator);
   if (type === "css") {
-    return $(locator);
+    return $$(locator);
   }
 
   if (type === "xpath") {
