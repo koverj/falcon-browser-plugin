@@ -27,7 +27,7 @@ const notifyOptions = {
   // hide animation duration
   hideDuration: 200,
   // padding between element and notification
-  gap: 2
+  gap: 1
 };
 
 const mysidebar_btn = "#mysidebar";
@@ -131,7 +131,9 @@ const addStyle = (locator, value) => {
         });
     });
 
-  findElement(locator, value.type).notify(value["tests"].length, notifyOptions);
+  const element = findElement(locator, value.type);
+  $(element).addClass("kj-border");
+  element.notify(value["tests"].length, notifyOptions);
 };
 
 const findElement = (locator, type) => {
