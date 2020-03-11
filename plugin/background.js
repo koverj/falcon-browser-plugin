@@ -1,8 +1,6 @@
-
-
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   chrome.storage.local.get(["isActive"], result => {
-    if (result.isActive) {
+    if (result.isActive && changeInfo.url) {
       getData(changeInfo.url);
     }
   });
