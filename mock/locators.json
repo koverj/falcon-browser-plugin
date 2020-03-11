@@ -1,0 +1,47 @@
+{
+  "body > app-root": {
+    "type": "css",
+    "tests": ["testRelativeCssLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "body > app-root app-layout-header > nav": {
+    "type": "css",
+    "tests": ["testRelativeCssLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "body > app-root app-layout-header > nav [href='/login']": {
+    "type": "css",
+    "tests": ["testRelativeCssLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "//body//app-root": {
+    "type": "xpath",
+    "tests": ["testRelativeXpathLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "//body//app-root.//app-layout-header//nav": {
+    "type": "xpath",
+    "tests": ["testRelativeXpathLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "//body//app-root.//app-layout-header//nav.//*[@href='/login']": {
+    "type": "xpath",
+    "tests": ["testRelativeXpathLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "[href='/login']": {
+    "type": "css",
+    "tests": ["testSimpleAndRelativeCssLocators()", "testSimpleCssLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "//*[@href='/login']": {
+    "type": "xpath",
+    "tests": ["testSimpleXpathLocators()"],
+    "urls": ["https://angular.realworld.io/"]
+  },
+  "body > app-root > app-auth-page > div > div > div > div > form > fieldset > fieldset:nth-child(2) > input": {
+    "type": "css",
+    "tests": ["1"],
+    "urls": ["https://angular.realworld.io/login"]
+  }
+}
