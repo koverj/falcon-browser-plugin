@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:8086/locators";
+
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   chrome.storage.local.get(["isActive"], result => {
@@ -21,19 +21,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 const getData = currentTabUrl => {
-  const encodedUrl = encodeURIComponent(`${currentTabUrl}`);
-  const req = new XMLHttpRequest();
-  req.open("GET", `${BACKEND_URL}?url=${encodedUrl}`, true);
-  req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  req.send();
+  chrome.storage.sync.get(["koverj_url"], result => {
+    const encodedUrl = encodeURIComponent(`${currentTabUrl}`);
+    const req = new XMLHttpRequest();
+    req.open("GET", `${result.koverj_url}?url=${encodedUrl}`, true);
+    req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send();
 
-  req.onreadystatechange = function() {
-    // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      saveToStorage(this.responseText);
-      broadcast({ command: "init" });
-    }
-  };
+    req.onreadystatechange = function() {
+      // Call a function when the state changes.
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        saveToStorage(this.responseText);
+        broadcast({ command: "init" });
+      }
+    };
+  });
 };
 
 const saveToStorage = data => {
