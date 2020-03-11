@@ -4,20 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>koverj</title>
-    <style>
-      #testName {
-        margin-bottom: 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugin.css" />
     <script type="text/javascript" src="plugin/plugin.js"></script>
   </head>
   <body>
-    <div id="container">
-      <span id="message"></span>
-      <div>
-        <button id="loadData">Load</button>
-        <button id="disable">Disable</button>
-        <button id="go-to-options">Go to options</button>
+    <div class="container pb-2">
+      <!-- <div class="row pt-2 pb-2">
+        <div class="col">
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm btn-block"
+            id="go-to-options"
+          >
+            Options
+          </button>
+        </div>
+      </div> -->
+
+      <div class="row pt-2">
+        <div class="col-6">
+          <button
+            type="button"
+            class="btn btn-outline-success btn-sm btn-block"
+            id="loadData"
+          >
+            Load
+          </button>
+        </div>
+
+        <div class="col-6">
+          <button
+            type="button"
+            class="btn btn-outline-dark btn-sm btn-block"
+            id="disable"
+          >
+            Disable
+          </button>
+        </div>
       </div>
     </div>
   </body>
