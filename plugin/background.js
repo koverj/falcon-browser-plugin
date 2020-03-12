@@ -1,7 +1,7 @@
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  chrome.storage.local.get(["isActive"], result => {
+  chrome.storage.local.get(["isActive", "activeBuild"], result => {
     if (result.isActive && changeInfo.url) {
-      getData(changeInfo.url);
+      getData(changeInfo.url, result.activeBuild);
     }
   });
 });
@@ -12,17 +12,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    getData(tabs[0].url);
+    chrome.storage.local.get(["activeBuild"], result => {
+      getData(tabs[0].url, result.activeBuild);
+    });
   });
 
   sendResponse({ status: "loaded..." });
 });
 
-const getData = currentTabUrl => {
+const getData = (currentTabUrl, activeBuild) => {
   chrome.storage.sync.get(["koverj_url"], result => {
     const encodedUrl = encodeURIComponent(`${currentTabUrl}`);
     const req = new XMLHttpRequest();
-    req.open("GET", `${result.koverj_url}?url=${encodedUrl}`, true);
+    req.open(
+      "GET",
+      `${result.koverj_url}/locators?url=${encodedUrl}&buildId=${activeBuild}`,
+      true
+    );
     req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send();
 

@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:8086/locators";
+const BACKEND_URL = "http://localhost:8086";
 
 function save_options() {
   let url = document.getElementById("backend_url").value;
