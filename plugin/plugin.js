@@ -34,4 +34,4 @@ const onOptions = () => {
 
 document.addEventListener("DOMContentLoaded", onStart, false);
 document.addEventListener("DOMContentLoaded", onDisable, false);
-document.addEventListener("DOMContentLoaded", onOptions, false);
+// document.addEventListener("DOMContentLoaded", onOptions, false);
