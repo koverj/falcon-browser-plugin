@@ -40,6 +40,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       return;
     }
 
+    $(".notifyjs-wrapper").remove();
+
     Object.entries(locators).forEach(([locator, value]) => {
       addStyle(locator, value);
     });
