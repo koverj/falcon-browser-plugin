@@ -1,3 +1,13 @@
+chrome.runtime.onInstalled.addListener(function() {
+  const BACKEND_URL = "http://localhost:8086";
+
+  chrome.storage.sync.set(
+    {
+      koverj_url: BACKEND_URL
+    },
+    () => {})
+})
+
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   chrome.storage.sync.get(["isActive", "activeBuild"], result => {
     if (result.isActive && changeInfo.url) {
