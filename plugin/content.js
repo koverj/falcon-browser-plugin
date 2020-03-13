@@ -55,9 +55,24 @@ const getLocatorsFromStorage = () => {
   return JSON.parse(locators);
 };
 
+const getLocatorsFromStorageById = identifier => {
+  return filter(getLocatorsFromStorage(), (_, v) => {
+    return v.id === identifier;
+  });
+};
+
+const filter = (obj, fun) =>
+  Object.entries(obj).reduce(
+    (prev, [key, value]) => ({
+      ...prev,
+      ...(fun(key, value) ? { [key]: value } : {})
+    }),
+    {}
+  );
+
 const addStyle = (locator, value) => {
   $.notify.addStyle("koverj-pin", {
-    html: `<div><a href="javascript:void(0)" title="${locator}" data-notify-text></a></div>`,
+    html: `<div><a href="javascript:void(0)" title="${locator}" id="${value.id}" data-notify-text></a></div>`,
     classes: {
       base: {
         "font-weight": "bold",
@@ -111,7 +126,10 @@ const addStyle = (locator, value) => {
         .sidebar({ side: "right" })
         .trigger("sidebar:open")
         .on("sidebar:opened", function() {
-          const locator = getLocatorsFromStorage()[event.target.title];
+          const locator = Object.values(
+            getLocatorsFromStorageById(event.target.id)
+          )[0];
+
           if (!locator) {
             return;
           }
