@@ -45,6 +45,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     });
   }
   sendResponse({ result: "success" });
+  return true;
 });
 
 const getLocatorsFromStorage = () => {

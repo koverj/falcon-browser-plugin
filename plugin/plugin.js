@@ -9,9 +9,12 @@ const onStart = () => {
         return;
       }
 
-      chrome.runtime.sendMessage({ message: "init" }, response => {
-        chrome.storage.local.set({ isActive: true, activeBuild: value });
-      });
+      chrome.runtime.sendMessage(
+        { message: "init", activeBuild: value },
+        response => {
+          chrome.storage.sync.set({ isActive: true, activeBuild: value });
+        }
+      );
     },
     false
   );
@@ -21,7 +24,7 @@ const onDisable = () => {
   document.getElementById("disable").addEventListener(
     "click",
     () => {
-      chrome.storage.local.set({ isActive: false });
+      chrome.storage.sync.set({ isActive: false });
     },
     false
   );
