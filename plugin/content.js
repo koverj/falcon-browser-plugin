@@ -33,6 +33,8 @@ const notifyOptions = {
 const mysidebar_btn = "#mysidebar";
 const tests_list = ".kj-tests-list";
 
+const missingLocators = [];
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.command === "init") {
     const locators = getLocatorsFromStorage();
@@ -45,8 +47,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     Object.entries(locators).forEach(([locator, value]) => {
       addStyle(locator, value);
     });
+    sendResponse({ result: "success" });
   }
-  sendResponse({ result: "success" });
+
   return true;
 });
 
@@ -152,18 +155,26 @@ const addStyle = (locator, value) => {
         });
     });
 
-  const element = findElement(locator, value.type);
+  const element = findElement(locator, value);
+  if (!element) {
+    return;
+  }
+
   $(element).addClass("kj-border");
   element.notify(value["tests"].length, notifyOptions);
 };
 
-const findElement = (locator, type) => {
-  if (type === "css") {
-    return $(locator);
-  }
+const findElement = (locator, value) => {
+  try {
+    if (value.type === "css") {
+      return $(locator);
+    }
 
-  if (type === "xpath") {
-    return findElementByXpath(locator);
+    if (value.type === "xpath") {
+      return findElementByXpath(locator);
+    }
+  } catch (error) {
+    missingLocators.push({ [locator]: value });
   }
 };
 
