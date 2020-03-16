@@ -33,5 +33,6 @@
     "default_title": "coverage for locators",
     "default_popup": "index.html"
   },
-  "manifest_version": 2
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; object-src 'self'"
 }

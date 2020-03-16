@@ -34,11 +34,14 @@ const onOptions = () => {
   document
     .querySelector("#go-to-options")
     .addEventListener("click", function() {
-      if (chrome.runtime.openOptionsPage) {
-        chrome.runtime.openOptionsPage();
-      } else {
-        window.open(chrome.runtime.getURL("options.html"));
-      }
+      // if (chrome.runtime.openOptionsPage) {
+      //   chrome.runtime.openOptionsPage();
+      // } else {
+      //   window.open(chrome.runtime.getURL("options.html"));
+      // }
+      chrome.tabs.create({'url': chrome.extension.getURL('graph.html')}, function(tab) {
+        // Tab opened.
+      });
     });
 };
 
@@ -67,7 +70,9 @@ const onLoad = () => {
   });
 };
 
+
+
 document.addEventListener("DOMContentLoaded", onLoad, false);
 document.addEventListener("DOMContentLoaded", onStart, false);
 document.addEventListener("DOMContentLoaded", onDisable, false);
-// document.addEventListener("DOMContentLoaded", onOptions, false);
+document.addEventListener("DOMContentLoaded", onOptions, false);
