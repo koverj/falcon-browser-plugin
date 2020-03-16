@@ -33,6 +33,8 @@ const notifyOptions = {
 const mysidebar_btn = "#mysidebar";
 const tests_list = ".kj-tests-list";
 
+const missingLocators = [];
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.command === "init") {
     const locators = getLocatorsFromStorage();
@@ -45,8 +47,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     Object.entries(locators).forEach(([locator, value]) => {
       addStyle(locator, value);
     });
+    sendResponse({ result: "success" });
   }
-  sendResponse({ result: "success" });
+
   return true;
 });
 
@@ -55,9 +58,24 @@ const getLocatorsFromStorage = () => {
   return JSON.parse(locators);
 };
 
+const getLocatorsFromStorageById = identifier => {
+  return filter(getLocatorsFromStorage(), (_, v) => {
+    return v.id === identifier;
+  });
+};
+
+const filter = (obj, fun) =>
+  Object.entries(obj).reduce(
+    (prev, [key, value]) => ({
+      ...prev,
+      ...(fun(key, value) ? { [key]: value } : {})
+    }),
+    {}
+  );
+
 const addStyle = (locator, value) => {
   $.notify.addStyle("koverj-pin", {
-    html: `<div><a href="javascript:void(0)" title="${locator}" data-notify-text></a></div>`,
+    html: `<div><a href="javascript:void(0)" title="${locator}" id="${value.id}" data-notify-text></a></div>`,
     classes: {
       base: {
         "font-weight": "bold",
@@ -111,7 +129,10 @@ const addStyle = (locator, value) => {
         .sidebar({ side: "right" })
         .trigger("sidebar:open")
         .on("sidebar:opened", function() {
-          const locator = getLocatorsFromStorage()[event.target.title];
+          const locator = Object.values(
+            getLocatorsFromStorageById(event.target.id)
+          )[0];
+
           if (!locator) {
             return;
           }
@@ -134,18 +155,26 @@ const addStyle = (locator, value) => {
         });
     });
 
-  const element = findElement(locator, value.type);
+  const element = findElement(locator, value);
+  if (!element) {
+    return;
+  }
+
   $(element).addClass("kj-border");
   element.notify(value["tests"].length, notifyOptions);
 };
 
-const findElement = (locator, type) => {
-  if (type === "css") {
-    return $(locator);
-  }
+const findElement = (locator, value) => {
+  try {
+    if (value.type === "css") {
+      return $(locator);
+    }
 
-  if (type === "xpath") {
-    return findElementByXpath(locator);
+    if (value.type === "xpath") {
+      return findElementByXpath(locator);
+    }
+  } catch (error) {
+    missingLocators.push({ [locator]: value });
   }
 };
 
