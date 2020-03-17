@@ -27,22 +27,32 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
       };
       var options = {
         autoResize: true,
+
         nodes: {
           shape: "dot",
+          margin: 20,
           size: 20,
           font: {
             size: 15,
-            color: "black"
+            color: "black",
+            align: "middle"
           },
-          borderWidth: 1
+          borderWidth: 1,
+          shadow: true
         },
         edges: {
-          width: 2
+          hoverWidth: 2,
+          width: 2,
+          length: 20,
+          font: {
+            align: "bottom"
+          },
+          scaling: {
+            min: 20,
+            max: 100
+          }
         },
-        physics: {
-          barnesHut: { gravitationalConstant: -50000, springLength: 100 },
-          stabilization: { iterations: 2500 }
-        },
+        physics: false,
         groups: {
           1: { color: "rgb(0,255,140)" },
           icons: {

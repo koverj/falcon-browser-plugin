@@ -5,13 +5,14 @@ chrome.runtime.onInstalled.addListener(function() {
     {
       koverj_url: BACKEND_URL
     },
-    () => {})
-})
+    () => {}
+  );
+});
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   chrome.storage.sync.get(["isActive", "activeBuild"], result => {
-    if (result.isActive && changeInfo.url) {
-      getData(tab.id, changeInfo.url, result.activeBuild);
+    if (result.isActive && changeInfo.status === "complete") {
+        getData(tab.id, tab.url, result.activeBuild);
     }
   });
 });

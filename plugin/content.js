@@ -43,10 +43,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 
     $(".notifyjs-wrapper").remove();
-
-    Object.entries(locators).forEach(([locator, value]) => {
-      addStyle(locator, value);
-    });
+    
+    // brutal hack to wait for dom content load
+    setTimeout(() => {
+      Object.entries(locators).forEach(([locator, value]) => {
+        addStyle(locator, value);
+      });
+    }, 1000);
     sendResponse({ result: "success" });
   }
 
