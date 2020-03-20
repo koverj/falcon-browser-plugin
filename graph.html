@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Network</title>
-    <script type="text/javascript" src="assets/js/vis-network.min.js"></script>
-    <style type="text/css">
-      #mynetwork {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        height: 90%;
-        border: 1px solid lightgray;
-        background-color: cornsilk;
-      }
-    </style>
-    <meta http-equiv="Content-Security-Policy" content="default-src *;" />
-    <script type="text/javascript" src="plugin/graph.js"></script>
-  </head>
-  <body>
-    <div id="mynetwork"></div>
-  </body>
+<head>
+  <title>Network</title>
+  <script type="text/javascript" src="assets/js/vis-network.min.js"></script>
+  <style type="text/css">
+    #mynetwork {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      border: 1px solid lightgray;
+      background-color: cornsilk;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    code {
+      font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+    }
+  </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src *;" />
+  <script type="text/javascript" src="plugin/graph.js"></script>
+</head>
+<body>
+<h1>Dynamic filtering</h1>
+<label>
+  Filter nodes
+  <select id="nodeFilterSelect">
+    <option value>All pages</option>
+<!--    <option value="https://angular.realworld.io/login">login</option>-->
+<!--    <option value="https://angular.realworld.io/register">register</option>-->
+<!--    <option value="https://angular.realworld.io/editor">editor</option>-->
+<!--    <option value="https://angular.realworld.io/settings">settings</option>-->
+  </select>
+</label>
+<br />
+<br />
+<label>
+  Tests filter
+  <div id="testNames"></div>
+</label>
+<br /><br />
+<div id="mynetwork"></div>
+</body>
 </html>
