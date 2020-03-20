@@ -13,15 +13,14 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             const resp = JSON.parse(this.responseText);
 
-            console.log(resp)
+            console.log(resp);
             // // create an array with nodes
             let nodes = new vis.DataSet(resp.nodes);
-            console.log('nodes', nodes);
+            console.log("nodes", nodes);
             //
             // // create an array with edges
             let edges = new vis.DataSet(resp.edges);
-            console.log('edges', edges);
-
+            console.log("edges", edges);
 
             const nodeFilterSelector = document.getElementById("nodeFilterSelect");
             const edgeFilters = document.getElementsByName("edgesFilter");
@@ -43,8 +42,13 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
                         width: 2
                     },
                     physics: {
-                        barnesHut: {gravitationalConstant: -50000, springLength: 100},
-                        stabilization: {iterations: 2500}
+                        barnesHut: {
+                            gravitationalConstant: -6000,
+                            springLength: 100,
+                            avoidOverlap: 1
+                        },
+                        stabilization: {iterations: 2500},
+                        maxVelocity: 0.6,
                     },
                     groups: {
                         1: {color: "rgb(0,255,140)"},
@@ -60,10 +64,23 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
                         source: {
                             color: {border: "white"}
                         }
-                    },
+                    }
                 };
 
-                new vis.Network(container, data, options);
+                let network = new vis.Network(container, data, options);
+                network.once("beforeDrawing", function () {
+                    network.focus(2, {
+                        scale: 12
+                    });
+                });
+                network.once("afterDrawing", function () {
+                    network.fit({
+                        animation: {
+                            duration: 3000,
+                            easingFunction: "linear"
+                        }
+                    });
+                });
             }
 
             /**
@@ -74,13 +91,13 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
             const edgesFilterValues = {};
 
             let edgesArray = filteredEdges(resp.edges);
-            console.log('edgesArray', edgesArray);
+            console.log("edgesArray", edgesArray);
             createTestTitleNode(edgesArray, edgesFilterValues);
 
             /*
-                  filter function should return true or false
-                  based on whether item in DataView satisfies a given condition.
-                */
+                        filter function should return true or false
+                        based on whether item in DataView satisfies a given condition.
+                      */
             const nodesFilter = node => {
                 if (nodeFilterValue === "") {
                     return true;
@@ -110,9 +127,9 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
                 // set new value to filter variable
                 nodeFilterValue = e.target.value;
                 /*
-                      refresh DataView,
-                      so that its filter function is re-calculated with the new variable
-                    */
+                              refresh DataView,
+                              so that its filter function is re-calculated with the new variable
+                            */
                 nodesView.refresh();
             });
 
@@ -137,7 +154,6 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
                 return acc;
             }
         }, []);
-
     }
 
     function createTestTitleNode(edgesArray, edgesFilterValues) {
@@ -146,19 +162,19 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
         for (let index in edgesArray) {
             let edge = edgesArray[index];
             console.log(edge);
-            let div = document.createElement('div');
-            let label = document.createElement('label');
-            let input = document.createElement('input');
-            input.setAttribute('type', 'checkbox');
-            input.setAttribute('name', 'edgesFilter');
-            input.setAttribute('value', edge.title);
+            let div = document.createElement("div");
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.setAttribute("type", "checkbox");
+            input.setAttribute("name", "edgesFilter");
+            input.setAttribute("value", edge.title);
+            input.checked = true;
             label.appendChild(input);
             let text = document.createTextNode(edge.title);
-            edgesFilterValues[edge.title] = false;
+            edgesFilterValues[edge.title] = true;
             label.appendChild(text);
             div.appendChild(label);
             testNames.appendChild(div);
         }
     }
-
 });
