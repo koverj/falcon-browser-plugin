@@ -5,16 +5,17 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <script type="text/javascript" src="assets/js/vis-network.min.js"></script>
     <style type="text/css">
+      html, body {
+        height: 100%;
+      }
+
       #mynetwork {
-        position: absolute;
-        top: 64%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 99%;
-        height: 126%;
+        height: 100%;
         border: 1px solid lightgray;
         background-color: ivory;
-        display: block;
+        height: 100vh;
+        margin-top: 5px;
+        margin-bottom: -20px
       }
 
       body {
@@ -36,14 +37,15 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-4">
+        <div class="col-md-4">
           <label class="pt-3">
             Tests filter
             <ul class="list-group list-group-flush" id="testNames"></ul>
           </label>
         </div>
-        <div class="col-8">
-          <div id="mynetwork"></div>
+        <div class="col-md-8">
+          <div id="mynetwork" class="mh-100"></div>
+        </div>
         </div>
       </div>
     </div>
