@@ -48,7 +48,7 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
               avoidOverlap: 1
             },
             stabilization: { iterations: 2500 },
-            maxVelocity: 0.9
+            maxVelocity: 0.6,
           },
           groups: {
             1: { color: "rgb(0,255,140)" },
