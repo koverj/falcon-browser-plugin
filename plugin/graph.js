@@ -67,7 +67,20 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
           }
         };
 
-        new vis.Network(container, data, options);
+        let network = new vis.Network(container, data, options);
+        network.once("beforeDrawing", function() {
+          network.focus(2, {
+            scale: 12
+          });
+        });
+        network.once("afterDrawing", function() {
+          network.fit({
+            animation: {
+              duration: 3000,
+              easingFunction: "linear"
+            }
+          });
+        });
       }
 
       /**
@@ -155,9 +168,10 @@ chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
       input.setAttribute("type", "checkbox");
       input.setAttribute("name", "edgesFilter");
       input.setAttribute("value", edge.title);
+      input.checked = true;
       label.appendChild(input);
       let text = document.createTextNode(edge.title);
-      edgesFilterValues[edge.title] = false;
+      edgesFilterValues[edge.title] = true;
       label.appendChild(text);
       div.appendChild(label);
       testNames.appendChild(div);
