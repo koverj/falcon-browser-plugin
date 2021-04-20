@@ -24,8 +24,8 @@ server.get("/builds", (request, response) => {
     response.status(200).json([
       {
         id: 1,
-        name: "8e1a757f-3496-427a-8a92-daca7c22828e"
-      }
+        name: "8e1a757f-3496-427a-8a92-daca7c22828e",
+      },
     ]);
   }
 });
@@ -34,11 +34,11 @@ const filter = (obj, fun) =>
   Object.entries(obj).reduce(
     (prev, [key, value]) => ({
       ...prev,
-      ...(fun(key, value) ? { [key]: value } : {})
+      ...(fun(key, value) ? { [key]: value } : {}),
     }),
     {}
   );
 
 server.listen(port, () => {
-  console.log("JSON Server is running");
+  console.log(`JSON Server is running on port ${port}`);
 });

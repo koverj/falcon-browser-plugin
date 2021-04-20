@@ -215,6 +215,7 @@ const addSideBar = () => {
     span.appendChild(closeBtn);
 
     let spanText = document.createElement("span");
+    spanText.setAttribute("class", "kj-sidebar-header")
     spanText.textContent = "Tests";
 
     header.appendChild(span);

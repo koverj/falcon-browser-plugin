@@ -2,13 +2,16 @@
   cursor: pointer;
 }
 
+.kj-sidebar-header {
+  display: block;
+}
+
 .koverj-sidebar.right {
   top: 0;
   right: 0;
   bottom: 0;
   width: 300px;
   background: floralwhite;
-  z-index: 100;
 }
 
 .sidebars > .koverj-sidebar {
@@ -17,15 +20,28 @@
   color: white;
   font-size: 2em;
   text-align: center;
-  z-index: 100;
   padding-top: 15px;
+  z-index: 1000;
+  height: 45rem;
+  margin-top: 15rem;
+  width: 20rem;
 }
 
 .kj-tests-list {
   font-size: 15px;
   text-align: left;
   color: black;
-  padding-top: 15px;
+  padding-top: 30px;
+  padding-left: 20px;
+}
+
+.kj-tests-list li {
+  margin-bottom: 5px;
+}
+
+.kj-tests-list li a {
+  font-size: large;
+  text-decoration: none;
 }
 
 .kj-close-sidebars {
@@ -62,10 +78,14 @@
   color: black;
 }
 
+.notifyjs-koverj-pin-base {
+  padding-top: 11px !important;
+}
+
 .notifyjs-koverj-pin-base a {
   color: blue;
 }
 
 .kj-tests-list a {
-  color: black;
+  color: darkslateblue;
 }
