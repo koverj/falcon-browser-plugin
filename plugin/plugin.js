@@ -64,7 +64,6 @@ const onLoad = () => {
           selectList.appendChild(option);
         }
       }
-      console.log(result);
       selectList.selectedIndex = result.activeBuild;
     };
   });
