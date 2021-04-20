@@ -81,11 +81,13 @@
 }
 
 .notifyjs-koverj-pin-base {
-  padding-top: 11px !important;
+  padding-top: 12px !important;
 }
 
 .notifyjs-koverj-pin-base a {
   color: blue;
+  text-decoration: none;
+  font-size: large;
 }
 
 .kj-tests-list a {
