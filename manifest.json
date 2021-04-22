@@ -19,9 +19,10 @@
         "plugin/content.js",
         "assets/js/jquery-3.3.1.js",
         "assets/js/notify.min.js",
-        "assets/js/jquery.sidebar.min.js"
+        "assets/js/jquery.sidebar.min.js",
+        "assets/js/tooltipster.bundle.min.js"
       ],
-      "css": ["assets/css/koverj.css"]
+      "css": ["assets/css/koverj.css", "assets/css/tooltipster.bundle.min.css"]
     }
   ],
   "options_ui": {

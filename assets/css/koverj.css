@@ -93,3 +93,32 @@
 .kj-tests-list a {
   color: darkslateblue;
 }
+
+.tooltipster-base {
+  pointer-events: all !important;
+  height: 30px;
+  width: 50px;
+}
+.tooltipster-box {
+  display: inline-block !important;
+  width: 100%;
+  height: 100%;
+  overflow: unset !important;
+  background: yellowgreen !important;
+}
+
+.tooltipster-box .tooltipster-content {
+  overflow: unset;
+}
+
+.tooltipster-arrow-background {
+  border-bottom-color: black !important;
+}
+
+.kj-icon {
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+  padding-left: 5px;
+  cursor: pointer;
+}

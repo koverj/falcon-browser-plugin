@@ -11,5 +11,19 @@
     "buildId": "83b76399-e95d-44bd-9610-484d41a0d9b0",
     "tests": ["testRelativeCssLocators()"],
     "urls": ["https://dev.trurisk.io/"]
+  },
+
+  "button": {
+    "type": "css",
+    "buildId": "83b76399-e95d-44bd-9610-484d41a0d9b0",
+    "tests": ["testRelativeCssLocators()"],
+    "urls": ["https://dev.trurisk.io/"]
+  },
+
+  "a[href='/engineer']": {
+    "type": "css",
+    "buildId": "83b76399-e95d-44bd-9610-484d41a0d9b0",
+    "tests": ["testRelativeCssLocators()"],
+    "urls": ["https://dev.trurisk.io/engineer"]
   }
 }
