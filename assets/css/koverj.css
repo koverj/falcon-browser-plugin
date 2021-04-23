@@ -34,7 +34,7 @@
   padding-top: 30px;
   padding-left: 20px;
   list-style: disc;
-  padding-left: 36px;
+  padding-left: 30px;
 }
 
 .kj-tests-list li {
@@ -48,7 +48,7 @@
 
 .kj-close-sidebars {
   position: absolute;
-  top: 29px;
+  top: 21px;
   width: 21px;
   height: 11px;
   left: 15px;
@@ -96,7 +96,7 @@
 
 .tooltipster-base {
   pointer-events: all !important;
-  height: 30px;
+  height: 20px !important;
   width: 50px;
 }
 .tooltipster-box {
@@ -109,6 +109,11 @@
 
 .tooltipster-box .tooltipster-content {
   overflow: unset;
+  padding: 0px !important;
+}
+
+.tooltipster-base .tooltipster-arrow {
+  left: 13px !important;
 }
 
 .tooltipster-arrow-background {
@@ -118,7 +123,21 @@
 .kj-icon {
   font-size: 18px;
   text-decoration: none;
-  color: white;
+  color: black;
   padding-left: 5px;
   cursor: pointer;
+}
+
+.kj-locator-text {
+  color: black;
+  font-size: 16px;
+  padding-top: 30px;
+  width: 100%;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.kj-sidebar-header-text {
+  font-size: 25px;
+  padding: 6px;
 }

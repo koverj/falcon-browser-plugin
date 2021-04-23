@@ -61,6 +61,10 @@ const addStyle = (locator, value) => {
     element = $(element[0]);
   }
 
+  if ($(element).is(":hidden")) {
+    element = element.parent();
+  }
+
   // check if tooltipster is initialized for the element
   const data = $(element).data();
   if (data && data.tooltipsterNs) {
@@ -75,7 +79,7 @@ const addStyle = (locator, value) => {
     interactive: true,
     position: "bottom",
     animation: "grow",
-    maxWidth: 95,
+    maxWidth: 25,
   });
 
   $(element).tooltipster("show");
@@ -125,17 +129,22 @@ const addSideBar = () => {
     header.setAttribute("class", "kj-sidebar-header");
     header.appendChild(closeBtn);
 
+    let locatorText = document.createElement("div");
+    locatorText.setAttribute("class", "kj-locator-text");
+
     let span = document.createElement("span");
     span.appendChild(closeBtn);
 
     let spanText = document.createElement("span");
-    spanText.setAttribute("class", "kj-sidebar-header");
+    spanText.setAttribute("class", "kj-sidebar-header-text");
     spanText.textContent = "Tests";
 
     header.appendChild(span);
     header.appendChild(spanText);
 
     sidebar.appendChild(header);
+
+    sidebar.appendChild(locatorText);
     sidebars.appendChild(sidebar);
     document.body.appendChild(sidebars);
 
@@ -156,17 +165,18 @@ const initTooltipListeners = () => {
         .trigger("sidebar:open")
         .on("sidebar:opened", function () {
           $(tests_list).remove();
+          $(".kj-locator-text").text(event.target.title);
+
           const locatorId = event.target.id;
+          const rawLocator = getLocatorsFromStorageById(locatorId);
 
-          const locator = Object.values(
-            getLocatorsFromStorageById(locatorId)
-          )[0];
-
-          if (!locator) {
+          if (Object.keys(rawLocator).length == 0) {
             return;
           }
 
-          let tests = locator.tests;
+          const value = Object.values(rawLocator)[0];
+
+          let tests = value.tests;
           let sidebar = document.getElementById("mysidebar");
 
           let ul = document.createElement("ul");
