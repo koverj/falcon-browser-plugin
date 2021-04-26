@@ -184,11 +184,13 @@ const initTooltipListeners = () => {
           let ul = document.createElement("ul");
           ul.setAttribute("class", "kj-tests-list");
           for (test in tests) {
+            const testName = tests[test];
+            const testLocators = Object.keys(findLocatorsByTestName(testName));
             let li = document.createElement("li");
             let span = document.createElement("span");
             span.classList.add("test-name");
-            span.textContent = tests[test];
-            span.dataset.name = tests[test];
+            span.textContent = `${testName} (${testLocators.length})`;
+            span.dataset.name = testName;
             li.appendChild(span);
             ul.appendChild(li);
           }
@@ -208,16 +210,7 @@ const reinitPagelocators = () => {
 const addEventListenerForTestNameClick = () => {
   $(document).on("click", ".test-name", function () {
     const testName = $(this).data("name");
-    const locators = getLocatorsFromStorage();
-
-    const testLocators = {};
-
-    Object.entries(locators).forEach(([k, v]) => {
-      if (v.tests.includes(testName)) {
-        v.tests = [testName];
-        testLocators[k] = v;
-      }
-    });
+    const testLocators = findLocatorsByTestName(testName);
 
     $(".tooltipster-base").remove();
 
@@ -225,4 +218,19 @@ const addEventListenerForTestNameClick = () => {
       addStyle(locator, value);
     });
   });
+};
+
+const findLocatorsByTestName = (testName) => {
+  const locators = getLocatorsFromStorage();
+
+  const testLocators = {};
+
+  Object.entries(locators).forEach(([k, v]) => {
+    if (v.tests.includes(testName)) {
+      v.tests = [testName];
+      testLocators[k] = v;
+    }
+  });
+
+  return testLocators;
 };
