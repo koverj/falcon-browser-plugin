@@ -12,14 +12,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     $(".notifyjs-wrapper").remove();
     $(".tooltipster-base").remove();
-
+    initTooltipListeners();
+    addEventListenerForTestNameClick();
     // brutal hack to wait for dom content load
     setTimeout(() => {
       Object.entries(locators).forEach(([locator, value]) => {
         addStyle(locator, value);
-        initTooltipListeners();
       });
     }, 1000);
+
     sendResponse({ result: "success" });
   }
 
@@ -150,6 +151,7 @@ const addSideBar = () => {
 
     $("#closeSidebars").on("click", function () {
       $(mysidebar_btn).sidebar({ side: "right" }).trigger("sidebar:close");
+      reinitPagelocators();
     });
   }
 };
@@ -183,13 +185,44 @@ const initTooltipListeners = () => {
           ul.setAttribute("class", "kj-tests-list");
           for (test in tests) {
             let li = document.createElement("li");
-            let a = document.createElement("a");
-            a.textContent = tests[test];
-            a.href = "#";
-            li.appendChild(a);
+            let span = document.createElement("span");
+            span.classList.add("test-name");
+            span.textContent = tests[test];
+            span.dataset.name = tests[test];
+            li.appendChild(span);
             ul.appendChild(li);
           }
           sidebar.appendChild(ul);
         });
     });
+};
+
+const reinitPagelocators = () => {
+  const locators = getLocatorsFromStorage();
+
+  Object.entries(locators).forEach(([locator, value]) => {
+    addStyle(locator, value);
+  });
+};
+
+const addEventListenerForTestNameClick = () => {
+  $(document).on("click", ".test-name", function () {
+    const testName = $(this).data("name");
+    const locators = getLocatorsFromStorage();
+
+    const testLocators = {};
+
+    Object.entries(locators).forEach(([k, v]) => {
+      if (v.tests.includes(testName)) {
+        v.tests = [testName];
+        testLocators[k] = v;
+      }
+    });
+
+    $(".tooltipster-base").remove();
+
+    Object.entries(testLocators).forEach(([locator, value]) => {
+      addStyle(locator, value);
+    });
+  });
 };

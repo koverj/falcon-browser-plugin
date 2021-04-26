@@ -90,8 +90,10 @@
   font-size: large;
 }
 
-.kj-tests-list a {
+.kj-tests-list > li > span {
   color: darkslateblue;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .tooltipster-base {
