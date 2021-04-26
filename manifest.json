@@ -9,6 +9,15 @@
     "tabs",
     "declarativeContent"
   ],
+  "commands": {
+    "reload": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Reload locators"
+    }
+  },
   "background": {
     "scripts": ["plugin/background.js"]
   },
