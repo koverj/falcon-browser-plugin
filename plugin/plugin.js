@@ -11,7 +11,7 @@ const onStart = () => {
 
       chrome.runtime.sendMessage(
         { message: "init", activeBuild: value },
-        response => {
+        (response) => {
           chrome.storage.sync.set({ isActive: true, activeBuild: value });
         }
       );
@@ -33,28 +33,32 @@ const onDisable = () => {
 const onOptions = () => {
   document
     .querySelector("#go-to-options")
-    .addEventListener("click", function() {
+    .addEventListener("click", function () {
       // if (chrome.runtime.openOptionsPage) {
       //   chrome.runtime.openOptionsPage();
       // } else {
       //   window.open(chrome.runtime.getURL("options.html"));
       // }
-      chrome.tabs.create({'url': chrome.extension.getURL('graph.html')}, function(tab) {
-        // Tab opened.
-      });
+      chrome.runtime.openOptionsPage();
+      // chrome.tabs.create(
+      //   { url: chrome.extension.getURL("graph.html") },
+      //   function (tab) {
+      //     // Tab opened.
+      //   }
+      // );
     });
 };
 
 const onLoad = () => {
   const selectList = document.getElementById("buildIdSelect");
 
-  chrome.storage.sync.get(["koverj_url", "activeBuild"], result => {
+  chrome.storage.sync.get(["koverj_url", "activeBuild"], (result) => {
     const req = new XMLHttpRequest();
     req.open("GET", `${result.koverj_url}/builds`, true);
     req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send();
 
-    req.onreadystatechange = function() {
+    req.onreadystatechange = function () {
       // Call a function when the state changes.
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         for (let [k, v] of Object.entries(JSON.parse(this.responseText))) {
@@ -68,8 +72,6 @@ const onLoad = () => {
     };
   });
 };
-
-
 
 document.addEventListener("DOMContentLoaded", onLoad, false);
 document.addEventListener("DOMContentLoaded", onStart, false);

@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Test Extension Options</title>
+    <title>Koverj options</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugin.css" />
   </head>
   <body>
-    <label>
-      <input id="backend_url" />
-    </label>
+    <div class="container pb-2">
+      <div class="row pt-2 pb-2">
+        <div class="col">
+          <label for="backend_url">
+            Falcon server url:
+            <input id="backend_url" />
+          </label>
 
-    <div id="status"></div>
-    <button id="save">Save</button>
+          <div id="status"></div>
+          <button id="save">Save</button>
+        </div>
+      </div>
+    </div>
 
     <script src="plugin/options.js"></script>
   </body>
