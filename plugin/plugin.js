@@ -58,6 +58,10 @@ const onLoad = () => {
     req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send();
 
+    const link = document.querySelector("#env-url");
+    link.href = result.koverj_url;
+    link.textContent = result.koverj_url;
+
     req.onreadystatechange = function () {
       // Call a function when the state changes.
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
