@@ -64,7 +64,7 @@ const onLoad = () => {
         for (let [k, v] of Object.entries(JSON.parse(this.responseText))) {
           var option = document.createElement("option");
           option.value = v.id;
-          option.text = v.id;
+          option.text = `Build: #${v.name}`;
           selectList.appendChild(option);
         }
       }
